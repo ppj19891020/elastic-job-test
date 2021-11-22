@@ -30,16 +30,17 @@ public class Test {
 //        client.delete().forPath("/demo-elastic-job/demoJob/status");
 //        client.create().creatingParentsIfNeeded().forPath("/demo-elastic-job/demoJob/status","false".getBytes());
 
-        client.delete().deletingChildrenIfNeeded().forPath("/demo-elastic-job");
+//        client.delete().deletingChildrenIfNeeded().forPath("/demo-elastic-job");
 
 
         String json = new String(client.getData().forPath("/demo-elastic-job/demoJob/config"));
         JSONObject jsonObject = JSON.parseObject(json);
         Boolean bol = (Boolean)jsonObject.get("disabled");
-        if(!bol){
-            jsonObject.put("disabled",true);
-            client.setData().forPath("/demo-elastic-job/demoJob/config",jsonObject.toJSONString().getBytes());
-        }
+        jsonObject.put("disabled",false);
+        client.setData().forPath("/demo-elastic-job/demoJob/config",jsonObject.toJSONString().getBytes());
+
+
+        client.setData().forPath("/demo-elastic-job/demoJob/servers/192.168.24.100","".getBytes());
     }
 
 }

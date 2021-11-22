@@ -36,13 +36,13 @@ public class JobConfig {
     @Bean(initMethod = "init")
     public JobScheduler demoJobScheduler(final DemoJob demoJob){
         MyElasticJobListener elasticJobListener = new MyElasticJobListener();
-        return new SpringJobScheduler(demoJob,registryCenter,liteJobConfiguration(),elasticJobListener);
+        return new SpringJobScheduler(demoJob,registryCenter,liteJobConfiguration());
     }
 
     private LiteJobConfiguration liteJobConfiguration(){
         return LiteJobConfiguration.newBuilder(
                 new SimpleJobConfiguration(
                         JobCoreConfiguration.newBuilder(demoJobName,demoJobCron,demoJobShardingTotalCount).build() ,DemoJob.class.getCanonicalName()
-                )).overwrite(true).disabled(true).build();
+                )).build();
     }
 }
