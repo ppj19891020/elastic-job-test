@@ -43,6 +43,6 @@ public class JobConfig {
         return LiteJobConfiguration.newBuilder(
                 new SimpleJobConfiguration(
                         JobCoreConfiguration.newBuilder(demoJobName,demoJobCron,demoJobShardingTotalCount).build() ,DemoJob.class.getCanonicalName()
-                )).build();
+                )).overwrite(false).build();
     }
 }
